@@ -1,5 +1,6 @@
 Autocomplete API:http://heenco.com:3001/rpc/search_address?query=6%20land%20street&limit=5
 Get Lot Details: http://heenco.com:3001/rpc/get_lot_details?long=153.0401049926877&lat=-27.338735046657852
+Get Closest Address: http://heenco.com:3001/rpc/get_closest_address?lat=-27.338735046657852&lon=153.0401049926877
 Get Flood Risk: http://heenco.com:3001/rpc/get_lot_flood_risk?lotdp_input=6RP66231
 
 Get Lot Bushfire risk: http://heenco.com:3001/rpc/get_lot_bushfire_risk?lotdp_input=1RP56852
@@ -24,6 +25,6 @@ Socio-economic
 Crime
     Property Crime
     Violet Crime
-    
+
 
 
