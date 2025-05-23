@@ -1,0 +1,8 @@
+Autocomplete API:http://heenco.com:3001/rpc/search_address?query=6%20land%20street&limit=5
+Get Lot Details: http://heenco.com:3001/rpc/get_lot_details?long=153.0401049926877&lat=-27.338735046657852
+Get Flood Risk: http://heenco.com:3001/rpc/get_lot_flood_risk?lotdp_input=6RP66231
+
+Get Lot Bushfire risk: http://heenco.com:3001/rpc/get_lot_bushfire_risk?lotdp_input=1RP56852
+Get Lot Noise Risk: http://heenco.com:3001/rpc/get_lot_noise_risk?lotdp_input=4SP210797
+Get Lot Coastal Erosion risk: http://heenco.com:3001/rpc/get_lot_coastal_erosion_risk?lotdp_input=63RP18356
+Get Lot Acid Sulfate Risk: http://heenco.com:3001/rpc/get_lot_acid_sulfate_risk?lotdp_input=63RP18356
