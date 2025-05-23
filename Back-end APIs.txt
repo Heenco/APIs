@@ -6,3 +6,24 @@ Get Lot Bushfire risk: http://heenco.com:3001/rpc/get_lot_bushfire_risk?lotdp_in
 Get Lot Noise Risk: http://heenco.com:3001/rpc/get_lot_noise_risk?lotdp_input=4SP210797
 Get Lot Coastal Erosion risk: http://heenco.com:3001/rpc/get_lot_coastal_erosion_risk?lotdp_input=63RP18356
 Get Lot Acid Sulfate Risk: http://heenco.com:3001/rpc/get_lot_acid_sulfate_risk?lotdp_input=63RP18356
+
+
+
+
+Hazard
+Access
+Socio-economic
+    Weekly income
+    Ethnicity
+    Employment status
+    Rent vs. Owning
+    Age
+    sex
+    Religion
+    Occupant Type
+Crime
+    Property Crime
+    Violet Crime
+    
+
+
