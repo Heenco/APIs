@@ -10,6 +10,7 @@ Get Lot Acid Sulfate Risk: http://heenco.com:3001/rpc/get_lot_acid_sulfate_risk?
 
 
 Get crime data: http://heenco.com:3001/rpc/get_crime_data?long=152.995509&lat=-27.481236
+get seifa data: http://heenco.com:3001/rpc/get_seifa_data?long=152.995509&lat=-27.481236
 
 
 
