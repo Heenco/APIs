@@ -9,6 +9,9 @@ Get Lot Coastal Erosion risk: http://heenco.com:3001/rpc/get_lot_coastal_erosion
 Get Lot Acid Sulfate Risk: http://heenco.com:3001/rpc/get_lot_acid_sulfate_risk?lotdp_input=63RP18356
 
 
+Get crime data: http://heenco.com:3001/rpc/get_crime_data?long=152.995509&lat=-27.481236
+
+
 
 
 Hazard
