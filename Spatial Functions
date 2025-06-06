@@ -1,27 +1,160 @@
 Functions on UrbanPortalDBP
 
+SELECT * FROM public."Lot" l WHERE l.planlabel = 'DP10069';
 
-SELECT * FROM public.get_lzn_attributes_by_lot('DP755687', '302');
-SELECT * FROM public.get_hob_attributes_by_lot('DP755687', '302');
-SELECT * FROM public.get_lep_attributes_by_lot('DP755687', '302');
-SELECT * FROM public.get_sepp_by_lot('DP755687', '302');
-SELECT * FROM public.get_suburb_by_lot('DP755687', '302');
-SELECT * FROM public.get_regional_growth_boundary_by_lot('DP755687', '302');
-SELECT * FROM public.get_bushfire_attributes_by_lot('DP755687', '302');
-SELECT * FROM public.get_fsr_attributes_by_lot('DP755687', '302');
-SELECT * FROM public.get_acid_sulfate_attributes_by_lot('DP755687', '302');
-SELECT * FROM public.get_active_street_frontage_by_lot('DP755687', '302');
-SELECT * FROM public.get_epi_heritage_by_lot('DP755687', '302');
-SELECT * FROM public.get_landslide_risk_by_lot('DP755687', '302');
-SELECT * FROM public.get_flood_mapping_by_lot('DP755687', '302');
-SELECT * FROM public.get_wetland_by_lot('DP755687', '302');
-SELECT * FROM public.get_coastal_management_by_lot('DP755687', '302');
-SELECT * FROM public.get_lot_size_by_lot('DP755687', '302');
-SELECT * FROM public.get_airport_noise_by_lot('DP755687', '302');
-SELECT * FROM public.get_contamination_sites_by_lot('DP755687', '302');
-SELECT * FROM public.get_biodiversity_by_lot('DP755687', '302');
-SELECT * FROM public.get_scenic_protection_land_by_lot('DP755687', '302');
-SELECT * FROM public.get_salinity_by_lot('DP755687', '302');
-SELECT * FROM public.get_mineral_resource_land_by_lot('DP755687', '302');
-SELECT * FROM public.get_riparian_land_watercourse_by_lot('DP755687', '302');
-SELECT * FROM public.get_groundwater_vulnerability_by_lot('DP755687', '302');
+
+SELECT * FROM public.get_suburb_by_lot('DP10069', '1','1');
+select * from public.get_acid_sulfate_attributes_by_lot('DP10069', '1','1');
+SELECT * FROM public.get_active_street_frontage_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_airport_noise_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_biodiversity_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_bushfire_attributes_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_coastal_management_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_contamination_sites_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_epi_heritage_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_flood_mapping_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_fsr_attributes_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_groundwater_vulnerability_by_lot('DP10069', '1','1');
+SELECT * FROM public.get_hob_attributes_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_landslide_risk_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_lep_attributes_by_lot('DP10069', '1','1');
+SELECT * FROM public.get_lzn_attributes_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_lot_size_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_mineral_resource_land_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_regional_growth_boundary_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_riparian_land_watercourse_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_salinity_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_scenic_protection_land_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_sepp_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_suburb_by_lot('DP10069', '1', '1');
+SELECT * FROM public.get_wetland_by_lot('DP10069', '1', '1');
+
+
+
+
+select * from public."LandValuation" where property_description ='23, 24, 25, 26/5/1905 9/214680';
+
+select * from public."addressstring" a where a.address ILIKE '%88-90 Foveaux Street Surry Hills%';
+
+SELECT 
+    p.propid, 
+    a.address
+FROM public."Property" p
+INNER JOIN public."addressstring" a
+ON p.propid = a.propid
+WHERE p.propid = 2853170;
+
+
+SELECT 
+    p.propid, 
+    a.address,
+    a.gurasid,
+    p.geom,
+    COUNT(*) OVER (PARTITION BY p.propid) AS propid_count
+FROM public."Property" p
+INNER JOIN public."addressstring" a
+    ON p.propid = a.propid;
+
+
+
+CREATE TABLE public.property_address_summary AS
+SELECT 
+    p.propid, 
+    a.address,
+    a.gurasid,
+    p.geom,
+    COUNT(*) OVER (PARTITION BY p.propid) AS propid_count
+FROM public."Property" p
+INNER JOIN public."addressstring" a
+    ON p.propid = a.propid;
+   
+
+DROP MATERIALIZED VIEW IF EXISTS lot_centroids_4283;
+
+CREATE MATERIALIZED VIEW lot_centroids_4283 AS
+SELECT 
+    objectid,
+    planlabel,
+    lotnumber,
+    sectionnumber,
+    ST_Centroid(ST_Transform(geom, 4283)) AS centroid_geom
+FROM public."Lot";
+
+
+CREATE INDEX idx_property_geom ON public.property_address_summary USING GIST (geom);
+CREATE INDEX idx_lot_centroid_geom ON public.lot_centroids_4283 USING GIST (centroid_geom);
+
+  
+CREATE TABLE lot_property_join AS
+SELECT 
+	lc.objectid,
+    lc.planlabel,
+    lc.lotnumber,
+    lc.sectionnumber,
+    lc.centroid_geom,
+    pas.propid,
+    pas.address,
+    pas.gurasid,
+    pas.propid_count
+FROM public.lot_centroids_4283 lc
+JOIN public.property_address_summary pas
+    ON ST_Intersects(lc.centroid_geom, pas.geom);
+   
+   
+   
+CREATE TABLE public.lot_property_landvaluation AS
+SELECT 
+    lpj.*,
+    lv.property_description,
+    lv.land_value_1,
+    lv.area,
+    lv.area_type
+FROM 
+    public.lot_property_join lpj
+JOIN 
+    public."LandValuation" lv
+    ON lpj.propid = lv.property_id;
+   
+   
+select count(*) from public."Lot";
+select count(*) from public.addressstring;
+select count(*) from public."Property";
+select count(*) from public."LandValuation";
+select count(*) from public."property_address_summary";
+select count(*) from public."lot_property_join";
+select count(*) from public."lot_property_landvaluation";
+
+   
+SELECT * 
+FROM public.lot_property_landvaluation p 
+WHERE p.address ILIKE '%88-90 Foveaux Street Surry Hills%';
+
+
+SELECT * 
+FROM public.lot_property_landvaluation p 
+WHERE p.planlabel='DP10069';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DROP FUNCTION get_lot_lzn_attributes(text,text,text)
+
+
