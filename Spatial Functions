@@ -1,0 +1,27 @@
+Functions on UrbanPortalDBP
+
+
+SELECT * FROM public.get_lzn_attributes_by_lot('DP755687', '302');
+SELECT * FROM public.get_hob_attributes_by_lot('DP755687', '302');
+SELECT * FROM public.get_lep_attributes_by_lot('DP755687', '302');
+SELECT * FROM public.get_sepp_by_lot('DP755687', '302');
+SELECT * FROM public.get_suburb_by_lot('DP755687', '302');
+SELECT * FROM public.get_regional_growth_boundary_by_lot('DP755687', '302');
+SELECT * FROM public.get_bushfire_attributes_by_lot('DP755687', '302');
+SELECT * FROM public.get_fsr_attributes_by_lot('DP755687', '302');
+SELECT * FROM public.get_acid_sulfate_attributes_by_lot('DP755687', '302');
+SELECT * FROM public.get_active_street_frontage_by_lot('DP755687', '302');
+SELECT * FROM public.get_epi_heritage_by_lot('DP755687', '302');
+SELECT * FROM public.get_landslide_risk_by_lot('DP755687', '302');
+SELECT * FROM public.get_flood_mapping_by_lot('DP755687', '302');
+SELECT * FROM public.get_wetland_by_lot('DP755687', '302');
+SELECT * FROM public.get_coastal_management_by_lot('DP755687', '302');
+SELECT * FROM public.get_lot_size_by_lot('DP755687', '302');
+SELECT * FROM public.get_airport_noise_by_lot('DP755687', '302');
+SELECT * FROM public.get_contamination_sites_by_lot('DP755687', '302');
+SELECT * FROM public.get_biodiversity_by_lot('DP755687', '302');
+SELECT * FROM public.get_scenic_protection_land_by_lot('DP755687', '302');
+SELECT * FROM public.get_salinity_by_lot('DP755687', '302');
+SELECT * FROM public.get_mineral_resource_land_by_lot('DP755687', '302');
+SELECT * FROM public.get_riparian_land_watercourse_by_lot('DP755687', '302');
+SELECT * FROM public.get_groundwater_vulnerability_by_lot('DP755687', '302');
